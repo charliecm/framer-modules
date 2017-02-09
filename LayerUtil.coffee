@@ -43,3 +43,16 @@ exports.superimpose = (src, dest) ->
 	src.height = dest.height
 	if dest.superLayer
 		src.superLayer = dest.superLayer
+
+# Shortcut for setting layer states with animation options.
+# @param {Layer} layer Target layer.
+# @param {Object} animationOptions State animation options.
+# @param {Object} defaultState Overrides layer.state.default.
+# @param {Array} states Additional states.
+exports.setStates = (layer, animationOptions, defaultState, states) ->
+	layer.states.animationOptions = animationOptions
+		if defaultState
+			layer.states.default = defaultState
+			layer.states.switchInstant 'default'
+		if states
+			layer.states.add states

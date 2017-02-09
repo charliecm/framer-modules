@@ -15,6 +15,11 @@ Provides a way to manage sets of hints to show what is interactable on screen. T
 Provides useful utility functions for dealing with layers.
 
     LayerUtil = require 'LayerUtil'
-    LayerUtil.selectByPath(screenLayer, 'header/btnBack/icon')
-    LayerUtil.selectAll(screenLayer, 'icon')
-    LayerUtil.superimpose(layerA, layerB)
+    LayerUtil.selectByPath screenLayer, 'header/btnBack/icon'
+    LayerUtil.selectAll screenLayer, 'icon'
+    LayerUtil.superimpose layerA, layerB
+    LayerUtil.setStates overlayLayer,
+    	{ time: 0.25 }
+    	{ opacity: 0 }
+    	visible:
+    		opacity: 0.8
