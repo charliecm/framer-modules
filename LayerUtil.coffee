@@ -51,8 +51,8 @@ exports.superimpose = (src, dest) ->
 # @param {Array} states Additional states.
 exports.setStates = (layer, animationOptions, defaultState, states) ->
 	layer.states.animationOptions = animationOptions
-		if defaultState
-			layer.states.default = defaultState
-			layer.states.switchInstant 'default'
-		if states
-			layer.states.add states
+	if defaultState
+		layer.states.default = defaultState
+		layer.states.switchInstant 'default'
+	if states
+		layer.states.add states
