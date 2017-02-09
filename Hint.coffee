@@ -1,10 +1,18 @@
 # Hint Module
 # Shows hint overlays on tap to direct user on where to hit.
-# by @charliecm
+# By @charliecm
 
-currentSet = ''
+# Example:
+# Hint = require 'Hint'
+# Hint.addSet 'home', [layerA, layerB]
+# Hint.switchSet 'home'
+
 sets = {}
+currentSet = ''
 isDragging = false
+defaultTint = 'rgba(52,152,219,0.75)'
+timeIn = 0.2
+timeOut = 0.8
 layerOptions = {}
 
 # Adds hint set
@@ -22,6 +30,11 @@ exports.switchSet = (name) ->
 # Sets default hint layer options
 exports.setLayerOptions = (options) ->
 	layerOptions = options || {}
+
+# Sets display transition timing
+exports.setTiming = (in, out) ->
+	timeIn = in
+	timeOut = out
 
 # Detect dragging
 document.addEventListener Events.TouchStart, ->
@@ -51,20 +64,21 @@ document.addEventListener Events.TouchEnd, (event) ->
 					y: frame.y
 					width: frame.width
 					height: frame.height
-					backgroundColor: 'rgba(52,152,219,0.75)'
+					backgroundColor: defaultTint
 					opacity: 0
 					ignoreEvents: true
+					name: 'hint'
 				, layerOptions
 			hint = new Layer options
 			hint.animate
 				properties:
 					opacity: 1
-				time: 0.2
+				time: timeIn
 			hint.once 'end', ->
 				hint.animate
 					properties:
 						opacity: 0
 					curve: 'linear'
-					time: 0.8
+					time: timeOut
 				hint.once 'end', ->
 					hint.destroy()
