@@ -1,6 +1,5 @@
 # Layer Utilities v0.0.1
 # By @charliecm
-# Provides useful utility functions for dealing with layers.
 
 # Selects all sublayers by name recursively.
 # @param {Layer} layer Target layer.

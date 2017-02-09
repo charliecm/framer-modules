@@ -1,11 +1,5 @@
 # Hint Module v0.0.1
 # By @charliecm
-# Shows hint overlays on tap to direct user on where to hit.
-
-# Example:
-# Hint = require 'Hint'
-# Hint.addSet 'home', [layerA, layerB]
-# Hint.switchSet 'home'
 
 sets = {}
 currentSet = ''
