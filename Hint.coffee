@@ -1,4 +1,4 @@
-# Hint Module (v1)
+# Hint Module v0.0.1
 # By @charliecm
 # Shows hint overlays on tap to direct user on where to hit.
 
