@@ -5,7 +5,11 @@
 # @param {Object} layers Imported layers object (e.g., sketch)
 exports.restoreImportedNames = (layers) ->
 	for name, layer of layers
-		layer.name = layer._info.originalName
+		originalName = layer._info.originalName
+		# https://github.com/koenbok/Framer/blob/master/framer/Importer.coffee#L24
+		for suffix in ['*', '-', '.png', '.jpg', '.pdf']
+			if _.endsWith(originalName.toLowerCase(), suffix)
+				layer.name = originalName[0..originalName.length-suffix.length-1]
 
 # Selects all sublayers by name recursively.
 # @param {Layer} layer Target layer.
