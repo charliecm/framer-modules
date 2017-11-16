@@ -1,5 +1,11 @@
-# Layer Utilities v0.0.2
+# Layer Utilities v0.0.3
 # By @charliecm
+
+# Restores all imported layer names to their original name.
+# @param {Object} layers Imported layers object (e.g., sketch)
+exports.restoreImportedNames = (layers) ->
+	for name, layer of layers
+		layer.name = layer._info.originalName
 
 # Selects all sublayers by name recursively.
 # @param {Layer} layer Target layer.
@@ -20,17 +26,32 @@ exports.selectAll = (layer, string, ignoreCase, layers) ->
 	return layers
 
 # Selects a sublayer by path.
+# @param {String} layer Base layer.
 # @param {String} path Layer path.
 # @param {String} delimeter Path delimeter.
 # @return {Layer} Sublayer.
-exports.selectByPath = (path = '', delimeter = '/') ->
+exports.selectByPath = (layer, path = '', delimeter = '/') ->
   names = path.split(delimeter)
-  layers = this.subLayersByName(names.shift() || '')
+  layers = layer.subLayersByName(names.shift() || '')
   if (layers.length && names.length)
     path = names.join(delimeter)
     return layers[0].selectByPath(path, delimeter)
   else
     return layers[0] || false
+
+# Creates a wrapper layer around a target layer.
+# @param {Layer} src Layer to wrap around.
+# @return {Layer} Wrapper layer.
+exports.createWrapper = (layer) ->
+	wrapper = new Layer
+		parent: layer.parent
+		x: layer.x
+		y: layer.y
+		width: layer.width
+		height: layer.height
+		backgroundColor: ''
+	layer.parent = wrapper
+	return wrapper
 
 # Superimposes a layer onto another layer.
 # @param {Layer} src Source layer.
