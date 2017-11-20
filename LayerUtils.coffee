@@ -1,4 +1,4 @@
-# Layer Utilities v0.0.3
+# Layer Utilities v0.0.4
 # By @charliecm
 
 # Restores all imported layer names to their original name.
@@ -10,6 +10,8 @@ exports.restoreImportedNames = (layers) ->
 		for suffix in ['*', '-', '.png', '.jpg', '.pdf']
 			if _.endsWith(originalName.toLowerCase(), suffix)
 				layer.name = originalName[0..originalName.length-suffix.length-1]
+			else
+				layer.name = originalName
 
 # Selects all sublayers by name recursively.
 # @param {Layer} layer Target layer.
@@ -37,9 +39,9 @@ exports.selectAll = (layer, string, ignoreCase, layers) ->
 exports.selectByPath = (layer, path = '', delimeter = '/') ->
   names = path.split(delimeter)
   layers = layer.subLayersByName(names.shift() || '')
-  if (layers.length && names.length)
+  if layers.length && names.length
     path = names.join(delimeter)
-    return layers[0].selectByPath(path, delimeter)
+    return exports.selectByPath(layers[0], path, delimeter)
   else
     return layers[0] || false
 
